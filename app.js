@@ -9,6 +9,7 @@ export class App{
         this.scenes={};
         this.current=null;
         this.renderer=new Renderer(canvas);
+        this.collisionSystem
     }
 
     /**
@@ -61,9 +62,9 @@ export class App{
         const loop =()=>{
             Time.update();
             this.current?.loop?.();
-            this.renderer.render(
-                this.current.entities,
-            );
+
+            const entities = this.current.entities ?? [];
+            this.renderer.render(entities);
 
             requestAnimationFrame(loop);
         }

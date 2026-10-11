@@ -1,15 +1,19 @@
 import { Vec2 } from "./vector2d.js";
 import { Time } from "./time.js";
+import { CollisionSystem } from "./colider/collisionSystem.js";
+
 export class Entity{
     /**
      * 
      * @param {Vec2} pos 
      * @param {img} img 
      */
-    constructor(pos,img){
+    constructor(pos,img,collider){
         this.pos = pos;
         this.img = new Image();
         this.img.src=img;
+        this.collider = collider;
+        this.collisionSystem = new CollisionSystem();
     }
 
     /**
@@ -37,5 +41,14 @@ export class Entity{
             this.pos.x,
             this.pos.y
         );
+    }
+
+    /**
+     * 他エンティティと接触しているか確認する。
+     * @param {Entity} otherEntity 
+     * @returns {boolean}
+     */
+    isCollide(otherEntity){
+        return this.collisionSystem.check(this,otherEntity);
     }
 }
