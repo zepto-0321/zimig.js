@@ -1,5 +1,5 @@
-import { CircleCollider, RectCollider } from "./collider"
-import { Mathf } from "../math";
+import { CircleCollider, RectCollider } from "./collider.js"
+import { Mathf } from "../math.js";
 
 export class CollisionSystem{
     /**

@@ -1,6 +1,6 @@
 import { Vec2 } from "./vector2d.js";
 import { Time } from "./time.js";
-import { CollisionSystem } from "./colider/collisionSystem.js";
+import { CollisionSystem } from "./collider/collisionSystem.js";
 
 export class Entity{
     /**
@@ -31,7 +31,7 @@ export class Entity{
      */
     goto(vec2){
         this.pos.x=vec2.x;
-        this.pos.x=vec2.y;
+        this.pos.y=vec2.y;
     }
 
     draw(ctx){
