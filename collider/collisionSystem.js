@@ -30,8 +30,6 @@ export class CollisionSystem{
         return false;
     }
 
-    //drawImage()は画像の左上基準だからEntityの中心座標じゃないよ！
-
     //円と矩形
     /**
      * 
@@ -39,30 +37,22 @@ export class CollisionSystem{
      * @param {Entity} rect 
      */
     circleRect(circle,rect){
-        const cx = circle.pos.x + circle.collider.radius;
-        const cy = circle.pos.y + circle.collider.radius;
+        const dx = circle.pos.x - rect.pos.x;
+        const dy = circle.pos.y - rect.pos.y;
 
-        const closestX = Mathf.clamp(
-            cx,
-            rect.pos.x,
-            rect.pos.x + rect.collider.width
-        );
-        const closestY = Mathf.clamp(
-            cy,
-            rect.pos.y,
-            rect.pos.y + rect.collider.height
-        );
+        const closedX = Mathf.clamp(dx, -rect.collider.width/2, rect.collider.width/2);
+        const closedY = Mathf.clamp(dy, -rect.collider.height/2, rect.collider.height/2);
 
-        const dx = cx - closestX;
-        const dy = cy - closestY;
+        const ddx = dx-closedX;
+        const ddy = dy-closedY;
 
-        return dx*dx + dy*dy <= circle.collider.radius **2;
+        return ddx*ddx + ddy*ddy <= circle.collider.radius**2;
     }
 
     //円どうし
     circleCircle(a,b){
-        const dx = (a.pos.x + a.collider.radius) - (b.pos.x + b.collider.radius);
-        const dy = (a.pos.y + a.collider.radius)- (b.pos.y + b.collider.radius);
+        const dx = a.pos.x - b.pos.x
+        const dy = a.pos.y - b.pos.y;
         const sumRadius = a.collider.radius + b.collider.radius;
         const sqDist = dx*dx + dy*dy;
 
@@ -73,10 +63,8 @@ export class CollisionSystem{
     rectRect(a,b){
         //AABB
         return (
-            a.pos.x < b.pos.x + b.collider.width &&
-            a.pos.x + a.collider.width > b.pos.x &&
-            a.pos.y < b.pos.y + b.collider.height &&
-            a.pos.y + a.collider.height > b.pos.y
+            Math.abs(a.pos.x - b.pos.x) <= (a.collider.width+b.collider.width)/2 &&
+            Math.abs(a.pos.y - b.pos.y) <= (a.collider.height+b.collider.height)/2
         );
     }
 }

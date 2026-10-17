@@ -38,8 +38,8 @@ export class Entity{
         if(!this.img) return;
         ctx.drawImage(
             this.img,
-            this.pos.x,
-            this.pos.y
+            this.pos.x - this.img.width/2,
+            this.pos.y - this.img.height/2
         );
     }
 

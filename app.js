@@ -8,8 +8,17 @@ export class App{
     constructor(canvas){
         this.scenes={};
         this.current=null;
-        this.renderer=new Renderer(canvas);
-        this.collisionSystem
+        this.collisionSystem;
+
+        /*
+        デバッグに関する設定が追加されたときは
+        ここ と renderer.jsのrender()も任意のコードを追加する。
+         */
+        this.debug = {
+            showCollider:false
+        };
+
+        this.renderer=new Renderer(canvas,this.debug);
     }
 
     /**

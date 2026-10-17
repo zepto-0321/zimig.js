@@ -1,7 +1,9 @@
 export class Renderer{
-    constructor(canvas){
+    constructor(canvas,debug){
         this.canvas =canvas;
         this.ctx=canvas.getContext("2d");
+        
+        this.debug = debug;
     }
 
     clear(){
@@ -17,6 +19,8 @@ export class Renderer{
         this.clear();
         for(const entity of entities){
             entity.draw(this.ctx);
+
+            if(this.debug.showCollider) entity.collider.draw(this.ctx,entity);
         }
     }
 }
